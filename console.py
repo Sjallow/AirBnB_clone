@@ -1,5 +1,8 @@
 
 import cmd
+import sys
+import re
+import os
 from datetime import datetime
 import models
 from models.amenity import Amenity
@@ -119,6 +122,23 @@ class HBNBCommand(cmd.Cmd):
         print("[", end="")
         print(", ".join(obj_list), end="")
         print("]")
+
+    def help_all(self):
+        """ Help information for the all command """
+        print("Shows all objects, or all of a class")
+        print("[Usage]: all <className>\n")
+
+    def do_count(self, args):
+        """Count current number of class instances"""
+        count = 0
+        for k, v in storage.all().items():
+            if args == k.split('.')[0]:
+                count += 1
+        print(count)
+
+    def help_count(self):
+        """ """
+        print("Usage: count <class_name>")
 
     def do_update(self, arg):
         """Update an instance based on the class name, id, attribute & value"""
